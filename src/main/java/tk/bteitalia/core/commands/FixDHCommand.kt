@@ -47,21 +47,21 @@ internal class FixDHCommand(private val config: FixDHConfig) : BaseCommand() {
         }
     }
 
-    @Subcommand("rglist|region list")
+    @Subcommand("rglist")
     @Description("Displays the list of all regions")
     fun onListRegion(sender: CommandSender) {
         val regions = config.regions.joinToString(", ")
         sender.sendMessage("Regions: $regions")
     }
 
-    @Subcommand("rgadd|region add")
+    @Subcommand("rgadd")
     @Description("Adds a region")
     fun onAddRegion(sender: CommandSender, region: String) {
         config.regions += region
         sender.sendMessage("${ChatColor.DARK_GREEN}The region ${ChatColor.WHITE}$region${ChatColor.DARK_GREEN} is successfully added!")
     }
 
-    @Subcommand("rgrm|region remove")
+    @Subcommand("rgrm")
     @Description("Removes a region")
     fun onRemoveRegion(sender: CommandSender, region: String) {
         config.regions = config.regions.filter { !it.equals(region, ignoreCase = true) }
