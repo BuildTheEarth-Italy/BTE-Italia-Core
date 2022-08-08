@@ -1,6 +1,12 @@
 name: BTEItalyCore
 version: '${version}'
-main: tk.bteitalia.core.BTEItalyCorePlugin
+
+description: The core plugin for BTE Italy
+website: bteitalia.tk
+authors:
+  - George Endo (MikChan/wtlgo)
+
 prefix: BTEICore
+api-version: 1.12
+main: tk.bteitalia.core.BTEItalyCorePlugin
 load: STARTUP
-description: A core plugin for BTE Italy
