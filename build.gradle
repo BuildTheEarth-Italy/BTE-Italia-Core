@@ -8,6 +8,12 @@ static def determineVersion(String defaultVersion) {
     return envVersion == null ? defaultVersion : envVersion
 }
 
+def localProperties = new Properties()
+def propertiesFile = rootProject.file('local.properties')
+if (propertiesFile.exists()) {
+    localProperties.load(new FileInputStream(propertiesFile))
+}
+
 group = 'tk.bteitalia.core'
 version = determineVersion('0.0.1')
 
@@ -57,4 +63,8 @@ if (hasProperty('buildScan')) {
         termsOfServiceUrl = 'https://gradle.com/terms-of-service'
         termsOfServiceAgree = 'yes'
     }
+}
+
+if (file("local.gradle").exists()) {
+    apply from: "local.gradle"
 }
