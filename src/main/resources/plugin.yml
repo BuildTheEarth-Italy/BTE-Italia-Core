@@ -13,3 +13,7 @@ load: STARTUP
 
 depend:
   - WorldGuard
+
+permissions:
+  bte-italy.core.admin:
+    default: op
