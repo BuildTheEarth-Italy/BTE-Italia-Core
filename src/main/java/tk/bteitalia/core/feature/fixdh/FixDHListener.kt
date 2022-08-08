@@ -7,6 +7,7 @@ import org.bukkit.event.player.PlayerJoinEvent
 import tk.bteitalia.core.BTEItalyCorePlugin
 import tk.bteitalia.core.config.FixDHConfig
 import tk.bteitalia.core.worldguard.WGRegionEnterEvent
+import kotlin.math.max
 
 internal class FixDHListener(
     private val corePlugin: BTEItalyCorePlugin,
@@ -14,7 +15,7 @@ internal class FixDHListener(
     private val config: FixDHConfig
 ) : Listener {
     private fun reloadDH() {
-        val ticksDelay = (config.delay * 20).toLong()
+        val ticksDelay = max(0, (config.delay * 20).toLong())
 
         corePlugin.server.scheduler.scheduleSyncDelayedTask(corePlugin, {
             val console = corePlugin.server.consoleSender
