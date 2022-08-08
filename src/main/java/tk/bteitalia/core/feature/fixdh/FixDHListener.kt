@@ -31,7 +31,7 @@ internal class FixDHListener(
 
         val name = event.region.id
         for (regionName in config.regions) {
-            if (name.contains(regionName, ignoreCase = true)) {
+            if (name.equals(regionName, ignoreCase = true)) {
                 reloadDH()
                 return
             }
@@ -43,7 +43,7 @@ internal class FixDHListener(
         if (!config.enabled) return
 
         val regions = worldGuardPlugin.regionContainer.get(event.player.world) ?: return
-        val spawnRegions = regions.regions.values.filter { it.id.contains("newspawn", ignoreCase = true) }
+        val spawnRegions = regions.regions.values.filter { it.id.equals("newspawn", ignoreCase = true) }
 
         val location = event.player.location
 
