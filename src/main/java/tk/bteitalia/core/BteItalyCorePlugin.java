@@ -2,6 +2,7 @@ package tk.bteitalia.core;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
+@SuppressWarnings("unused")
 public final class BteItalyCorePlugin extends JavaPlugin {
     @Override
     public void onEnable() {
