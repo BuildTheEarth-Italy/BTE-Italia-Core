@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'org.jetbrains.kotlin.jvm' version '1.7.10'
 }
 
 static def determineVersion(String defaultVersion) {
@@ -33,6 +34,12 @@ repositories {
 
 dependencies {
     compileOnly 'org.spigotmc:spigot-api:1.12.2-R0.1-SNAPSHOT'
+
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.10'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.10'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-common:1.7.10'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.7.10'
+    implementation 'org.jetbrains:annotations:23.0.0'
 }
 
 def targetJavaVersion = 8
@@ -60,7 +67,31 @@ processResources {
     }
 }
 
-shadowJar {}
+shadowJar {
+    dependencies {
+        include(dependency('org.jetbrains.kotlin:kotlin-stdlib-jdk8'))
+        include(dependency('org.jetbrains.kotlin:kotlin-stdlib-jdk7'))
+        include(dependency('org.jetbrains.kotlin:kotlin-stdlib-common'))
+        include(dependency('org.jetbrains.kotlin:kotlin-stdlib'))
+        include(dependency('org.jetbrains:annotations'))
+    }
+
+    relocate 'kotlin', 'tk.bteitalia.core.shadow.kotlin'
+    relocate 'org.jetbrains', 'tk.bteitalia.core.shadow.org.jetbrains'
+    relocate 'org.intellij', 'tk.bteitalia.core.shadow.org.intellij'
+}
+
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
 
 if (hasProperty('buildScan')) {
     buildScan {

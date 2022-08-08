@@ -1,6 +1,6 @@
 name: BTEItalyCore
 version: '${version}'
-main: tk.bteitalia.core.BteItalyCorePlugin
+main: tk.bteitalia.core.BTEItalyCorePlugin
 prefix: BTEICore
 load: STARTUP
 description: A core plugin for BTE Italy
