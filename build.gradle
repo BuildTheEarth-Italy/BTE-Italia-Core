@@ -2,8 +2,13 @@ plugins {
     id 'java'
 }
 
+static def determineVersion(String defaultVersion) {
+    def envVersion = System.getenv("VERSION")
+    return envVersion == null ? defaultVersion : envVersion
+}
+
 group = 'tk.bteitalia.core'
-version = '0.0.1'
+version = determineVersion('0.0.1')
 
 repositories {
     mavenCentral()
