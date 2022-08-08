@@ -10,3 +10,6 @@ prefix: BTEICore
 api-version: 1.12
 main: tk.bteitalia.core.BTEItalyCorePlugin
 load: STARTUP
+
+depend:
+  - WorldGuard

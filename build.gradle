@@ -30,10 +30,17 @@ repositories {
         name = 'sonatype'
         url = 'https://oss.sonatype.org/content/groups/public/'
     }
+
+    maven {
+        name = 'enginehub'
+        url = 'https://maven.enginehub.org/repo/'
+    }
 }
 
 dependencies {
     compileOnly 'org.spigotmc:spigot-api:1.12.2-R0.1-SNAPSHOT'
+
+    compileOnly 'com.sk89q.worldguard:worldguard-legacy:6.2'
 
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.10'
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.10'
