@@ -20,7 +20,7 @@ class BTEItalyCorePlugin : JavaPlugin() {
             logger.warning("Unable to register WorldGuard handler!")
         }
 
-        val fixDHListener = FixDHListener(this)
+        val fixDHListener = FixDHListener(this, worldGuard)
         server.pluginManager.registerEvents(fixDHListener, this)
 
         logger.info("Plugin is enabled!")
