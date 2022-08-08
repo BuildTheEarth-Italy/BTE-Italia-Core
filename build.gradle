@@ -1,5 +1,6 @@
 plugins {
-    id 'java'
+    id "java"
+    id "com.github.johnrengelman.shadow" version "7.1.2"
 }
 
 static def determineVersion(String defaultVersion) {
@@ -48,5 +49,12 @@ processResources {
     filteringCharset 'UTF-8'
     filesMatching('plugin.yml') {
         expand props
+    }
+}
+
+if (hasProperty('buildScan')) {
+    buildScan {
+        termsOfServiceUrl = 'https://gradle.com/terms-of-service'
+        termsOfServiceAgree = 'yes'
     }
 }
