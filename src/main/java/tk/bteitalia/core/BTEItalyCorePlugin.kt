@@ -16,14 +16,16 @@ class BTEItalyCorePlugin : JavaPlugin() {
             return
         }
 
-        if (!WGEntryHandler.register(worldGuard, server.pluginManager)) {
-            logger.warning("Unable to register WorldGuard handler!")
-        }
-
         val fixDHListener = FixDHListener(this, worldGuard)
         server.pluginManager.registerEvents(fixDHListener, this)
 
         logger.info("Plugin is enabled!")
+
+        server.scheduler.scheduleSyncDelayedTask(this, {
+            if (!WGEntryHandler.register(worldGuard, server.pluginManager)) {
+                logger.warning("Unable to register WorldGuard session handler!")
+            }
+        }, 1)
     }
 
     override fun onDisable() {
