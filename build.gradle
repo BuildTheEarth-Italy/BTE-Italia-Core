@@ -1,10 +1,10 @@
 plugins {
-    id "java"
-    id "com.github.johnrengelman.shadow" version "7.1.2"
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
 static def determineVersion(String defaultVersion) {
-    def envVersion = System.getenv("VERSION")
+    def envVersion = System.getenv('VERSION')
     return envVersion == null ? defaultVersion : envVersion
 }
 
@@ -19,10 +19,12 @@ version = determineVersion('0.0.1')
 
 repositories {
     mavenCentral()
+
     maven {
         name = 'spigotmc-repo'
         url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
     }
+
     maven {
         name = 'sonatype'
         url = 'https://oss.sonatype.org/content/groups/public/'
@@ -58,8 +60,7 @@ processResources {
     }
 }
 
-shadowJar {
-}
+shadowJar {}
 
 if (hasProperty('buildScan')) {
     buildScan {
@@ -68,6 +69,6 @@ if (hasProperty('buildScan')) {
     }
 }
 
-if (file("local.gradle").exists()) {
-    apply from: "local.gradle"
+if (file('local.gradle').exists()) {
+    apply from: 'local.gradle'
 }
