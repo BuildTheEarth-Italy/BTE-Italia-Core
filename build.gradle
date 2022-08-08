@@ -35,6 +35,11 @@ repositories {
         name = 'enginehub'
         url = 'https://maven.enginehub.org/repo/'
     }
+
+    maven {
+        name = "aikar-repo"
+        url = "https://repo.aikar.co/content/groups/aikar/"
+    }
 }
 
 dependencies {
