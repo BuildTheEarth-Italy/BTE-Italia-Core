@@ -3,7 +3,7 @@ package tk.bteitalia.core
 import com.sk89q.worldguard.bukkit.WGBukkit
 import org.bukkit.event.HandlerList
 import org.bukkit.plugin.java.JavaPlugin
-import tk.bteitalia.core.feature.fixhd.FixHDListener
+import tk.bteitalia.core.feature.fixdh.FixDHListener
 import tk.bteitalia.core.worldguard.WGEntryHandler
 
 @Suppress("unused")
@@ -20,8 +20,8 @@ class BTEItalyCorePlugin : JavaPlugin() {
             logger.warning("Unable to register WorldGuard handler!")
         }
 
-        val fixHDListener = FixHDListener(this)
-        server.pluginManager.registerEvents(fixHDListener, this)
+        val fixDHListener = FixDHListener(this)
+        server.pluginManager.registerEvents(fixDHListener, this)
 
         logger.info("Plugin is enabled!")
     }

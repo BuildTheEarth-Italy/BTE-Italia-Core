@@ -1,11 +1,11 @@
-package tk.bteitalia.core.feature.fixhd
+package tk.bteitalia.core.feature.fixdh
 
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import tk.bteitalia.core.BTEItalyCorePlugin
 import tk.bteitalia.core.worldguard.WGRegionEnterEvent
 
-internal class FixHDListener(private val plugin: BTEItalyCorePlugin) : Listener {
+internal class FixDHListener(private val plugin: BTEItalyCorePlugin) : Listener {
     private fun reloadDH() {
         plugin.server.scheduler.scheduleSyncDelayedTask(plugin, {
             val console = plugin.server.consoleSender
