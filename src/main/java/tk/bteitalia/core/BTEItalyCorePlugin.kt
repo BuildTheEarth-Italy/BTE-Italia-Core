@@ -8,8 +8,8 @@ import tk.bteitalia.core.feature.fixhd.FixHDListener
 @Suppress("unused")
 class BTEItalyCorePlugin : JavaPlugin() {
     override fun onEnable() {
-        val we = WGBukkit.getPlugin()
-        if (we == null) {
+        val wg = WGBukkit.getPlugin()
+        if (wg == null) {
             logger.severe("WorldGuard is not found!!!")
             server.pluginManager.disablePlugin(this)
             return
