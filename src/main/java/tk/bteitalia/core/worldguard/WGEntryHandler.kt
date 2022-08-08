@@ -10,16 +10,16 @@ import org.bukkit.Location
 import org.bukkit.entity.Player
 import org.bukkit.plugin.PluginManager
 
-internal class WorldGuardEntryHandler(session: Session, private val pluginManager: PluginManager) : Handler(session) {
+internal class WGEntryHandler(session: Session, private val pluginManager: PluginManager) : Handler(session) {
     companion object {
         fun register(worldGuard: WorldGuardPlugin, pluginManager: PluginManager): Boolean {
             return worldGuard.sessionManager.registerHandler(Factory(pluginManager), null)
         }
     }
 
-    class Factory(private val pluginManager: PluginManager) : Handler.Factory<WorldGuardEntryHandler>() {
-        override fun create(session: Session): WorldGuardEntryHandler {
-            return WorldGuardEntryHandler(session, pluginManager)
+    class Factory(private val pluginManager: PluginManager) : Handler.Factory<WGEntryHandler>() {
+        override fun create(session: Session): WGEntryHandler {
+            return WGEntryHandler(session, pluginManager)
         }
     }
 
@@ -34,7 +34,7 @@ internal class WorldGuardEntryHandler(session: Session, private val pluginManage
     ): Boolean {
         if (player != null && entered != null) {
             for (region in entered) {
-                val enterEvent = WorldGuardRegionEnterEvent(player, region)
+                val enterEvent = WGRegionEnterEvent(player, region)
                 pluginManager.callEvent(enterEvent)
                 if (enterEvent.isCancelled) return false
             }

@@ -7,7 +7,7 @@ import org.bukkit.event.Event
 import org.bukkit.event.HandlerList
 
 @Suppress("unused")
-internal class WorldGuardRegionEnterEvent(
+internal class WGRegionEnterEvent(
     val player: Player,
     val region: ProtectedRegion
 ) : Event(), Cancellable {
