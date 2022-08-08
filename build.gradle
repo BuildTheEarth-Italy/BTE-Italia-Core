@@ -58,6 +58,9 @@ processResources {
     }
 }
 
+shadowJar {
+}
+
 if (hasProperty('buildScan')) {
     buildScan {
         termsOfServiceUrl = 'https://gradle.com/terms-of-service'
