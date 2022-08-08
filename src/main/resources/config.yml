@@ -1,0 +1,13 @@
+# This is an automatic property, do not change!
+configVersion: 1
+
+features:
+  fix-dh:
+    enabled: false
+    delay: 1
+
+    execute-commands:
+      - plugman reload DecentHolograms
+
+    regions:
+      - newspawn
