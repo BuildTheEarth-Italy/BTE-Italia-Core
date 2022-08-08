@@ -1,17 +1,14 @@
-package tk.bteitalia.core;
+package tk.bteitalia.core
 
-import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.plugin.java.JavaPlugin
 
-@SuppressWarnings("unused")
-public final class BteItalyCorePlugin extends JavaPlugin {
-    @Override
-    public void onEnable() {
-        // Plugin startup logic
-
+@Suppress("unused")
+class BTEItalyCorePlugin : JavaPlugin() {
+    override fun onEnable() {
+        logger.info("Plugin is enabled!")
     }
 
-    @Override
-    public void onDisable() {
-        // Plugin shutdown logic
+    override fun onDisable() {
+        logger.info("Plugin is disabled!")
     }
 }
