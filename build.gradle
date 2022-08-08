@@ -1,16 +1,30 @@
 plugins {
     id 'java'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+}
+
+static def determineVersion(String defaultVersion) {
+    def envVersion = System.getenv('VERSION')
+    return envVersion == null ? defaultVersion : envVersion
+}
+
+def localProperties = new Properties()
+def propertiesFile = rootProject.file('local.properties')
+if (propertiesFile.exists()) {
+    localProperties.load(new FileInputStream(propertiesFile))
 }
 
 group = 'tk.bteitalia.core'
-version = '0.0.1'
+version = determineVersion('0.0.1')
 
 repositories {
     mavenCentral()
+
     maven {
         name = 'spigotmc-repo'
         url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
     }
+
     maven {
         name = 'sonatype'
         url = 'https://oss.sonatype.org/content/groups/public/'
@@ -44,4 +58,17 @@ processResources {
     filesMatching('plugin.yml') {
         expand props
     }
+}
+
+shadowJar {}
+
+if (hasProperty('buildScan')) {
+    buildScan {
+        termsOfServiceUrl = 'https://gradle.com/terms-of-service'
+        termsOfServiceAgree = 'yes'
+    }
+}
+
+if (file('local.gradle').exists()) {
+    apply from: 'local.gradle'
 }
