@@ -22,7 +22,7 @@ internal class FixDHListener(
 ) : Listener {
     private fun reloadDH(player: Player) {
         val tps = 20
-        val ticksDelay = max(0, (config.delay * tps).toLong())
+        val ticksDelay = max(1, (config.delay * tps).toLong())
 
         logger?.info("Scheduling reloading holograms for player ${player.name} in the next $ticksDelay ticks...")
 
