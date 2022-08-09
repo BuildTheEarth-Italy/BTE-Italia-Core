@@ -1,29 +1,21 @@
 package tk.bteitalia.core.feature.fixdh
 
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin
+import eu.decentsoftware.holograms.api.DecentHologramsAPI
+import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerJoinEvent
-import tk.bteitalia.core.BTEItalyCorePlugin
 import tk.bteitalia.core.config.FixDHConfig
 import tk.bteitalia.core.worldguard.WGRegionEnterEvent
-import kotlin.math.max
 
 internal class FixDHListener(
-    private val corePlugin: BTEItalyCorePlugin,
     private val worldGuardPlugin: WorldGuardPlugin,
     private val config: FixDHConfig
 ) : Listener {
-    private fun reloadDH() {
-        val ticksDelay = max(0, (config.delay * 20).toLong())
-
-        corePlugin.server.scheduler.scheduleSyncDelayedTask(corePlugin, {
-            val console = corePlugin.server.consoleSender
-
-            for (command in config.executeCommands) {
-                corePlugin.server.dispatchCommand(console, command)
-            }
-        }, ticksDelay)
+    private fun reloadDH(player: Player) {
+        val dh = DecentHologramsAPI.get()
+        dh.hologramManager.updateVisibility(player)
     }
 
     @EventHandler(ignoreCancelled = true)
@@ -33,7 +25,7 @@ internal class FixDHListener(
         val name = event.region.id
         for (regionName in config.regions) {
             if (name.equals(regionName, ignoreCase = true)) {
-                reloadDH()
+                reloadDH(event.player)
                 return
             }
         }
@@ -52,7 +44,7 @@ internal class FixDHListener(
             if (!region.contains(location.blockX, location.blockY, location.blockZ)) continue
 
             for (regionName in config.regions) {
-                reloadDH()
+                reloadDH(event.player)
                 return
             }
         }

@@ -31,7 +31,7 @@ class BTEItalyCorePlugin : JavaPlugin() {
             return
         }
 
-        val fixDHListener = FixDHListener(this, worldGuard, config.features.fixDH)
+        val fixDHListener = FixDHListener(worldGuard, config.features.fixDH)
         server.pluginManager.registerEvents(fixDHListener, this)
 
         if (commandManager == null) commandManager = PaperCommandManager(this)
