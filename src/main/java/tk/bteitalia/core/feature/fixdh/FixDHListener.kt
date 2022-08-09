@@ -29,10 +29,14 @@ internal class FixDHListener(
         corePlugin.server.scheduler.scheduleSyncDelayedTask(corePlugin, {
             logger?.info("Start reloading holograms for player ${player.name}")
 
-            val dh = DecentHologramsAPI.get()
-            dh.hologramManager.updateVisibility(player)
+            try {
+                val dh = DecentHologramsAPI.get()
+                dh.hologramManager.updateVisibility(player)
 
-            logger?.info("Done reloading holograms for player ${player.name}")
+                logger?.info("Done reloading holograms for player ${player.name}")
+            } catch (ex: Exception) {
+                logger?.severe("Unable to access DecentHolograms plugin. Is it missing?")
+            }
         }, ticksDelay)
     }
 
