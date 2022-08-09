@@ -58,12 +58,9 @@ internal class FixDHListener(
 
         val regions = worldGuardPlugin.regionContainer.get(event.player.world) ?: return
         val worldRegions = regions.regions.values.filter { worldReg ->
-            config.regions.any { configReg ->
-                worldReg.id.equals(
-                    configReg, ignoreCase = true
-                )
-            }
+            config.regions.map { it.lowercase() }.contains(worldReg.id.lowercase())
         }
+
 
         val location = event.player.location
 
@@ -85,12 +82,9 @@ internal class FixDHListener(
 
         val regions = worldGuardPlugin.regionContainer.get(event.player.world) ?: return
         val worldRegions = regions.regions.values.filter { worldReg ->
-            config.regions.any { configReg ->
-                worldReg.id.equals(
-                    configReg, ignoreCase = true
-                )
-            }
+            config.regions.map { it.lowercase() }.contains(worldReg.id.lowercase())
         }
+
 
         val location = event.to
 
