@@ -2,6 +2,7 @@ package tk.bteitalia.core.feature.fixdh
 
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin
 import eu.decentsoftware.holograms.api.DecentHologramsAPI
+import org.bukkit.Location
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -35,6 +36,26 @@ internal class FixDHListener(
         }, ticksDelay)
     }
 
+    private fun processRegionEnter(player: Player, to: Location) {
+        if (!config.enabled) return
+
+        val regions = worldGuardPlugin.regionContainer.get(to.world) ?: return
+        val worldRegions = regions.regions.values.filter { worldReg ->
+            config.regions.map { it.lowercase() }.contains(worldReg.id.lowercase())
+        }
+
+        logger?.info("Player ${player.name} entered the location $to")
+
+        for (region in worldRegions) {
+            if (!region.contains(to.blockX, to.blockY, to.blockZ)) continue
+
+            logger?.info("Location $to is found in the region ${region.id}")
+
+            reloadDH(player)
+            return
+        }
+    }
+
     @EventHandler(ignoreCancelled = true)
     fun onWGRegionEnter(event: WGRegionEnterEvent) {
         if (!config.enabled) return
@@ -54,49 +75,11 @@ internal class FixDHListener(
 
     @EventHandler(ignoreCancelled = true)
     fun onPlayerJoin(event: PlayerJoinEvent) {
-        if (!config.enabled) return
-
-        val regions = worldGuardPlugin.regionContainer.get(event.player.world) ?: return
-        val worldRegions = regions.regions.values.filter { worldReg ->
-            config.regions.map { it.lowercase() }.contains(worldReg.id.lowercase())
-        }
-
-
-        val location = event.player.location
-
-        logger?.info("Player ${event.player.name} joined at location $location")
-
-        for (region in worldRegions) {
-            if (!region.contains(location.blockX, location.blockY, location.blockZ)) continue
-
-            logger?.info("Location $location is found in the region ${region.id}")
-
-            reloadDH(event.player)
-            return
-        }
+        processRegionEnter(event.player, event.player.location)
     }
 
     @EventHandler(ignoreCancelled = true)
     fun onPlayerTeleport(event: PlayerTeleportEvent) {
-        if (!config.enabled) return
-
-        val regions = worldGuardPlugin.regionContainer.get(event.player.world) ?: return
-        val worldRegions = regions.regions.values.filter { worldReg ->
-            config.regions.map { it.lowercase() }.contains(worldReg.id.lowercase())
-        }
-
-
-        val location = event.to
-
-        logger?.info("Player ${event.player.name} teleported to the location $location")
-
-        for (region in worldRegions) {
-            if (!region.contains(location.blockX, location.blockY, location.blockZ)) continue
-
-            logger?.info("Location $location is found in the region ${region.id}")
-
-            reloadDH(event.player)
-            return
-        }
+        processRegionEnter(event.player, event.to)
     }
 }
