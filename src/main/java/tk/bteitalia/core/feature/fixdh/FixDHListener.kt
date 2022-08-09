@@ -6,6 +6,7 @@ import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerJoinEvent
+import org.bukkit.event.player.PlayerTeleportEvent
 import tk.bteitalia.core.config.FixDHConfig
 import tk.bteitalia.core.worldguard.WGRegionEnterEvent
 import java.util.logging.Logger
@@ -55,6 +56,33 @@ internal class FixDHListener(
         val location = event.player.location
 
         logger?.info("Player ${event.player.name} joined at location $location")
+
+        for (region in worldRegions) {
+            if (!region.contains(location.blockX, location.blockY, location.blockZ)) continue
+
+            logger?.info("Location $location is found in the region ${region.id}")
+
+            reloadDH(event.player)
+            return
+        }
+    }
+
+    @EventHandler(ignoreCancelled = true)
+    fun onPlayerTeleport(event: PlayerTeleportEvent) {
+        if (!config.enabled) return
+
+        val regions = worldGuardPlugin.regionContainer.get(event.player.world) ?: return
+        val worldRegions = regions.regions.values.filter { worldReg ->
+            config.regions.any { configReg ->
+                worldReg.id.equals(
+                    configReg, ignoreCase = true
+                )
+            }
+        }
+
+        val location = event.to
+
+        logger?.info("Player ${event.player.name} teleported to the location $location")
 
         for (region in worldRegions) {
             if (!region.contains(location.blockX, location.blockY, location.blockZ)) continue
