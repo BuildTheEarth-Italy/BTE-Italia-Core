@@ -37,8 +37,13 @@ repositories {
     }
 
     maven {
-        name = "aikar-repo"
-        url = "https://repo.aikar.co/content/groups/aikar/"
+        name = 'aikar-repo'
+        url = 'https://repo.aikar.co/content/groups/aikar/'
+    }
+    
+    maven {
+        name = 'jitpack'
+        url = 'https://jitpack.io'
     }
 }
 
@@ -46,9 +51,10 @@ dependencies {
     compileOnly 'org.spigotmc:spigot-api:1.12.2-R0.1-SNAPSHOT'
 
     compileOnly 'com.sk89q.worldguard:worldguard-legacy:6.2'
+    compileOnly 'com.github.decentsoftware-eu:decentholograms:2.5.2'
 
     implementation 'dev.dejvokep:boosted-yaml-spigot:1.3'
-    implementation "co.aikar:acf-paper:0.5.1-SNAPSHOT"
+    implementation 'co.aikar:acf-paper:0.5.1-SNAPSHOT'
 
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.10'
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.10'
