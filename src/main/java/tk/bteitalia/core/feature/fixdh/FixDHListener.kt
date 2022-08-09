@@ -7,20 +7,32 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerTeleportEvent
+import tk.bteitalia.core.BTEItalyCorePlugin
 import tk.bteitalia.core.config.FixDHConfig
 import tk.bteitalia.core.worldguard.WGRegionEnterEvent
 import java.util.logging.Logger
+import kotlin.math.max
 
 internal class FixDHListener(
-    private val worldGuardPlugin: WorldGuardPlugin, private val config: FixDHConfig, private val logger: Logger? = null
+    private val corePlugin: BTEItalyCorePlugin,
+    private val worldGuardPlugin: WorldGuardPlugin,
+    private val config: FixDHConfig,
+    private val logger: Logger? = null
 ) : Listener {
     private fun reloadDH(player: Player) {
-        logger?.info("Reloading holograms for player ${player.name}")
+        val tps = 20
+        val ticksDelay = max(0, (config.delay * tps).toLong())
 
-        val dh = DecentHologramsAPI.get()
-        dh.hologramManager.updateVisibility(player)
+        logger?.info("Scheduling reloading holograms for player ${player.name} in the next $ticksDelay ticks...")
 
-        logger?.info("Done reloading holograms for player ${player.name}")
+        corePlugin.server.scheduler.scheduleSyncDelayedTask(corePlugin, {
+            logger?.info("Start reloading holograms for player ${player.name}")
+
+            val dh = DecentHologramsAPI.get()
+            dh.hologramManager.updateVisibility(player)
+
+            logger?.info("Done reloading holograms for player ${player.name}")
+        }, ticksDelay)
     }
 
     @EventHandler(ignoreCancelled = true)
