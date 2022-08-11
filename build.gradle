@@ -16,7 +16,7 @@ if (propertiesFile.exists()) {
 }
 
 group = 'tk.bteitalia.core'
-version = determineVersion('1.0.1')
+version = determineVersion('1.0.2')
 
 repositories {
     mavenCentral()
