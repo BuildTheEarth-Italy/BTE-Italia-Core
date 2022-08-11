@@ -37,8 +37,8 @@ repositories {
     }
 
     maven {
-        name = "aikar-repo"
-        url = "https://repo.aikar.co/content/groups/aikar/"
+        name = 'aikar-repo'
+        url = 'https://repo.aikar.co/content/groups/aikar/'
     }
 }
 
@@ -81,7 +81,7 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocatio
 
 task relocateShadowJar(type: ConfigureShadowRelocation) {
     target = tasks.shadowJar
-    prefix = "tk.bteitalia.core.shadow"
+    prefix = 'tk.bteitalia.core.shadow'
 }
 tasks.shadowJar.dependsOn tasks.relocateShadowJar
 
