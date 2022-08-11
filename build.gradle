@@ -47,14 +47,9 @@ dependencies {
 
     compileOnly 'com.sk89q.worldguard:worldguard-legacy:6.2'
 
-    implementation 'dev.dejvokep:boosted-yaml-spigot:1.3'
-    implementation "co.aikar:acf-paper:0.5.1-SNAPSHOT"
-
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.10'
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.10'
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib-common:1.7.10'
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.7.10'
-    implementation 'org.jetbrains:annotations:23.0.0'
+    shadow 'dev.dejvokep:boosted-yaml-spigot:1.3'
+    shadow 'co.aikar:acf-paper:0.5.1-SNAPSHOT'
+    shadow 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.10'
 }
 
 def targetJavaVersion = 8
@@ -82,24 +77,16 @@ processResources {
     }
 }
 
+import com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocation
+
+task relocateShadowJar(type: ConfigureShadowRelocation) {
+    target = tasks.shadowJar
+    prefix = "tk.bteitalia.core.shadow"
+}
+tasks.shadowJar.dependsOn tasks.relocateShadowJar
+
 shadowJar {
-    dependencies {
-        include(dependency('dev.dejvokep:boosted-yaml-spigot'))
-        include(dependency('co.aikar:acf-paper'))
-
-        include(dependency('org.jetbrains.kotlin:kotlin-stdlib-jdk8'))
-        include(dependency('org.jetbrains.kotlin:kotlin-stdlib-jdk7'))
-        include(dependency('org.jetbrains.kotlin:kotlin-stdlib-common'))
-        include(dependency('org.jetbrains.kotlin:kotlin-stdlib'))
-        include(dependency('org.jetbrains:annotations'))
-    }
-
-    relocate 'dev.dejvokep', 'tk.bteitalia.core.shadow.dev.dejvokep'
-    relocate 'co.aikar', 'tk.bteitalia.core.shadow.co.aikar'
-
-    relocate 'kotlin', 'tk.bteitalia.core.shadow.kotlin'
-    relocate 'org.jetbrains', 'tk.bteitalia.core.shadow.org.jetbrains'
-    relocate 'org.intellij', 'tk.bteitalia.core.shadow.org.intellij'
+    configurations = [project.configurations.shadow]
 }
 
 compileKotlin {
