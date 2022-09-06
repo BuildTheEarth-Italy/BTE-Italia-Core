@@ -9,10 +9,11 @@ authors:
 prefix: BTEICore
 api-version: 1.12
 main: tk.bteitalia.core.BTEItalyCorePlugin
-load: STARTUP
+load: POSTWORLD
 
 depend:
   - WorldGuard
+  - DecentHolograms
 
 permissions:
   bte-italy.core.admin:
