@@ -6,6 +6,7 @@ import org.bukkit.event.HandlerList
 import org.bukkit.plugin.java.JavaPlugin
 import tk.bteitalia.core.commands.FixDHCommand
 import tk.bteitalia.core.commands.MainCommand
+import tk.bteitalia.core.commands.RemovePlayerdataCommand
 import tk.bteitalia.core.config.Config
 import tk.bteitalia.core.feature.fixdh.FixDHListener
 import tk.bteitalia.core.worldguard.WGEntryHandler
@@ -37,6 +38,7 @@ class BTEItalyCorePlugin : JavaPlugin() {
         if (commandManager == null) commandManager = PaperCommandManager(this)
         commandManager?.registerCommand(MainCommand(config))
         commandManager?.registerCommand(FixDHCommand(config.features.fixDH))
+        commandManager?.registerCommand(RemovePlayerdataCommand())
 
         logger.info("Plugin is enabled!")
 
