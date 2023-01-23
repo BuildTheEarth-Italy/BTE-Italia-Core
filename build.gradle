@@ -40,6 +40,8 @@ repositories {
         name = 'aikar-repo'
         url = 'https://repo.aikar.co/content/groups/aikar/'
     }
+
+    maven { url 'https://jitpack.io' }
 }
 
 dependencies {
@@ -47,6 +49,7 @@ dependencies {
 
     compileOnly 'com.sk89q.worldguard:worldguard-legacy:6.2'
 
+    shadow 'com.github.jkcclemens:khttp:0.1.0'
     shadow 'dev.dejvokep:boosted-yaml-spigot:1.3'
     shadow 'co.aikar:acf-paper:0.5.1-SNAPSHOT'
     shadow 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.10'
@@ -55,8 +58,8 @@ dependencies {
 def targetJavaVersion = 8
 java {
     def javaVersion = JavaVersion.toVersion(targetJavaVersion)
-    sourceCompatibility = javaVersion
-    targetCompatibility = javaVersion
+    sourceCompatibility = 11
+    targetCompatibility = 11
     if (JavaVersion.current() < javaVersion) {
         toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
     }
